@@ -147,14 +147,35 @@ def get_random_points(n=5, scale=0.8, mindst=None, rec=0):
 
 # Inspired from https://github.com/TimoFlesch/2D-Shape-Generator
 # Canvas creation
+"""Helper function to make a surface for cairo canvas
+
+:param ssisze: size of canvas
+:returns: img representing the surface
+"""
+
 
 def makeSurface(ssize):
     img = cairo.ImageSurface(cairo.FORMAT_ARGB32, ssize[0], ssize[1])
     return img
 
 
+"""Helper function to make a contex for cairo canvas 
+
+:param img: the image of the canvas (surface)
+:returns: the context of the image
+"""
+
+
 def makeContext(img):
     return cairo.Context(img)
+
+
+"""Helper function to make a canvas for cairo lib
+
+:param imsize: size of the image canvas
+:param bgcol: color of the background
+:returns: the image canvas, the context
+"""
 
 
 def makeCanvas(imsize, bgcol):
@@ -165,10 +186,28 @@ def makeCanvas(imsize, bgcol):
     return img, ctx
 
 
+"""Helper function to clear the context of the cairo canvas
+
+:param ctx: the canvas context
+:param col: color to be filled
+:returns: the cleared context
+"""
+
+
 def clearContext(ctx, col):
     ctx.set_source_rgb(col[0], col[1], col[2])
     ctx.paint()
     return ctx
+
+
+"""Helper function to translate a shape 
+
+:param ctx: the context of the canvas
+:param dx: x axis displacement (width)
+:param dy: y axis displacement (height)
+
+:returns: the canvas context
+"""
 
 
 # Transformation
@@ -177,14 +216,40 @@ def translateShape(ctx, dx=0, dy=0):
     return ctx
 
 
+"""Helper function to rotate a shape 
+
+:param ctx: the context of the canvas
+:param angle: the angle to rotate the shape (degree)
+
+:returns: the canvas context
+"""
+
+
 def rotateShape(ctx, angle):
     ctx.rotate(math.radians(angle))
     return ctx
 
 
+"""Helper function to scale a shape 
+
+:param ctx: the context of the canvas
+:param scale: the scale factor
+:returns: the canvas context
+"""
+
+
 def scaleShape(ctx, scale):
     ctx.scale(scale[0], scale[1])
     return ctx
+
+
+"""Helper function to colourise a shape 
+
+:param ctx: the context of the canvas
+:param newCol: the color to apply to the shape
+
+:returns: the canvas context
+"""
 
 
 def colouriseShape(ctx, newCol):
@@ -193,10 +258,30 @@ def colouriseShape(ctx, newCol):
 
 
 # Shapes
+"""Helper function to draw a rectangle 
+
+:param ctx: the context of the canvas
+:param size: the size used for the shape
+:param rectRatio: the ratio used to scal edge of the rectangle
+
+:returns: the canvas context
+"""
+
+
 def drawRect(ctx, size, rectRatio):
     ctx.rectangle(0 - (size / rectRatio[0]) / 2, 0 - (size / rectRatio[1]) / 2, size / rectRatio[0],
                   size / rectRatio[1])
     return ctx
+
+
+"""Helper function to draw a polygone
+
+:param ctx: the context of the canvas
+:param size: the size used for the shape
+:param numVertices: the number of vertices
+
+:returns: the canvas context
+"""
 
 
 def drawPolygon(ctx, size, numVertices=4):
@@ -206,6 +291,17 @@ def drawPolygon(ctx, size, numVertices=4):
     for ii in coords:
         ctx.line_to(ii[0], ii[1])
     return ctx
+
+
+"""Helper function to draw a star 
+
+:param ctx: the context of the canvas
+:param outerRadius: the radius for the outer spike
+:param innerRadius: the radius for the inner edge
+:param numVertices: the number of spike
+
+:returns: the canvas context
+"""
 
 
 def drawStar(ctx, outerRadius, innerRadius, numVertices=5):
@@ -223,6 +319,15 @@ def drawStar(ctx, outerRadius, innerRadius, numVertices=5):
     return ctx
 
 
+"""Helper function to draw a random shape 
+
+:param ctx: the context of the canvas
+:param size: the max size of the shape (square)
+
+:returns: the canvas context
+"""
+
+
 def drawRandom(ctx, size):
     rad = 0.2
     edgy = 0.05
@@ -236,9 +341,29 @@ def drawRandom(ctx, size):
     return ctx
 
 
+"""Helper function to draw a circle
+
+:param ctx: the context of the canvas
+:param size: the radius of the circle
+
+:returns: the canvas context
+"""
+
+
 def drawCircle(ctx, size):
     ctx.arc(0, 0, size, 0, math.pi * 2)
     return ctx
+
+
+"""Helper function to draw a star 
+
+:param ctx: the context of the canvas
+:param centre: the center of the ellipsis
+:param size: the size of the radius
+:param scale: the scale factor for the first radius of the ellipsis and the second one
+
+:returns: the canvas context
+"""
 
 
 def drawEllipse(ctx, centre, size, scale):
@@ -249,49 +374,13 @@ def drawEllipse(ctx, centre, size, scale):
     return ctx
 
 
-# General image operations
-def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
-    # initialize the dimensions of the image to be resized and
-    # grab the image size
-    dim = None
-    (h, w) = image.shape[:2]
+"""Helper function to draw random shapes with help of noise (no control of center nor number)
 
-    # if both the width and height are None, then return the
-    # original image
-    if width is None and height is None:
-        return image
+:param w: the width
+:param h: the height
 
-    # check to see if the width is None
-    if width is None:
-        # calculate the ratio of the height and construct the
-        # dimensions
-        r = height / float(h)
-        dim = (int(w * r), height)
-
-    # otherwise, the height is None
-    else:
-        # calculate the ratio of the width and construct the
-        # dimensions
-        r = width / float(w)
-        dim = (width, int(h * r))
-
-    # resize the image
-    resized = cv2.resize(image, dim, interpolation=inter)
-
-    # return the resized image
-    return resized
-
-
-def image_fill(image, width, height, color):
-    # 255 = blank 0 = black
-    bg = np.zeros([width, height], np.uint8)
-    bg[:, :] = 255
-    h1, w1 = image.shape
-    yoff = round((height - h1) / 2)
-    xoff = round((width - w1) / 2)
-    result = bg.copy()
-    result[yoff:yoff + h1, xoff:xoff + w1] = image
-    return result
+:returns: a cv2 morphology ex
+"""
 
 
 def random_shapes(w, h):
@@ -322,6 +411,16 @@ def random_shapes(w, h):
     return result
 
 
+"""Helper function to prepare a shape being draw on canvas
+
+:param ctx: the context of the canvas
+:param ctr: the center of the canvas
+:param p: the properties object of the shape
+
+:returns: the canvas context
+"""
+
+
 def prepare(ctx, ctr, p):
     ctx = translateShape(ctx, ctr[0], ctr[1])
     ctx = translateShape(ctx, p.trX, p.trY)
@@ -331,11 +430,31 @@ def prepare(ctx, ctr, p):
     return ctx
 
 
+"""Helper function to put a rectangle on canvas
+
+:param ctx: the context of the canvas
+:param ctr: the center of the canvas
+:param p: the properties object of the rectangle
+
+:returns: the canvas context
+"""
+
+
 def rectangle(ctx, ctr, p):
     prepare(ctx, ctr, p)
     ctx = drawRect(ctx, p.size, p.rect_ratio)
     ctx.fill()
     return ctx
+
+
+"""Helper function to put a polygone on canvas
+
+:param ctx: the context of the canvas
+:param ctr: the center of the canvas
+:param p: the properties object of the polygone
+
+:returns: the canvas context
+"""
 
 
 def poly(ctx, ctr, p):
@@ -345,11 +464,31 @@ def poly(ctx, ctr, p):
     return ctx
 
 
+"""Helper function to put a star on canvas
+
+:param ctx: the context of the canvas
+:param ctr: the center of the canvas
+:param p: the properties object of the star
+
+:returns: the canvas context
+"""
+
+
 def star(ctx, ctr, p):
     prepare(ctx, ctr, p)
     ctx = drawStar(ctx, p.size, p.size2, numVertices=p.branch)
     ctx.fill()
     return ctx
+
+
+"""Helper function to put a circle on canvas
+
+:param ctx: the context of the canvas
+:param ctr: the center of the canvas
+:param p: the properties object of the circle
+
+:returns: the canvas context
+"""
 
 
 def circle(ctx, ctr, p):
@@ -359,11 +498,31 @@ def circle(ctx, ctr, p):
     return ctx
 
 
+"""Helper function to put an ellipsis on canvas
+
+:param ctx: the context of the canvas
+:param ctr: the center of the canvas
+:param p: the properties object of the ellipsis
+
+:returns: the canvas context
+"""
+
+
 def ellipse(ctx, ctr, p):
     prepare(ctx, ctr, p)
     ctx = drawEllipse(ctx, ctr, p.size, p.ellipse_ratio)
     ctx.fill()
     return ctx
+
+
+"""Helper function to put a random shape on canvas
+
+:param ctx: the context of the canvas
+:param ctr: the center of the canvas
+:param p: the properties object of the random shape
+
+:returns: the canvas context
+"""
 
 
 def random_shape(ctx, ctr, p):
@@ -373,21 +532,67 @@ def random_shape(ctx, ctr, p):
     return ctx
 
 
+"""Helper function to return the area of the rectangle
+
+:param size: base size
+:param ratio: ratio for size length
+
+
+:returns: area of the rectangle
+"""
+
+
 def area_rec(size, ratio):
     (l1, l2) = size * ratio
     return l1 * l2
+
+
+"""Helper function to return the area a polygone (estimated)
+
+:param size: base size
+
+:returns: area of a polygone
+"""
 
 
 def area_poly(size):
     return math.pi * (size ** 2)
 
 
+"""Helper function to return the area of a star (estimated)
+
+:param size: outerRadius
+
+
+:returns: area of a star
+"""
+
+
 def area_star(size):
     return math.pi * (size ** 2) / 2
 
 
+"""Helper function to return the area of a circle
+
+:param size: Radius
+
+
+:returns: area of a circle
+"""
+
+
 def area_circle(size):
     return math.pi * (size ** 2)
+
+
+"""Helper function to return the area of an ellipsis
+
+:param size: base size
+:param ratio: ratio scale factor for the base size
+
+
+:returns: area of an ellipsis
+"""
 
 
 def area_ellipse(size, ratio):
@@ -395,8 +600,28 @@ def area_ellipse(size, ratio):
     return math.pi * a * b
 
 
+"""Helper function to return the area of a random shape (estimated)
+
+:param size: max size of a square vertex delimitation
+
+
+:returns: area of the random shape (badly estimated)
+"""
+
+
 def area_random(size):
     return (size ** 2) * 3 / 4
+
+
+"""Helper function to try to predict the size for the area of a rec (estimated)
+
+:param dim: dimension of the total image
+:param rec_ratio: ratio of the rectangle shape
+:param ratio: the ratio of the total image to hide with the shape
+
+
+:returns: size to use to create the shape
+"""
 
 
 def size_rec(dim, rec_ratio, ratio):
@@ -405,9 +630,29 @@ def size_rec(dim, rec_ratio, ratio):
     return int(round(math.sqrt(ratio * a * b / (r1 * r2))))
 
 
+"""Helper function to try to predict the size for the area of a polygone (estimated)
+
+:param dim: dimension of the total image
+:param ratio: the ratio of the total image to hide with the shape
+
+
+:returns: size to use to create the shape
+"""
+
+
 def size_poly(dim, ratio):
     (a, b) = dim
     return int(round(math.sqrt(ratio * a * b / math.pi)))
+
+
+"""Helper function to try to predict the size for the area of a star (estimated)
+
+:param dim: dimension of the total image
+:param ratio: the ratio of the total image to hide with the shape
+
+
+:returns: size to use to create the shape
+"""
 
 
 def size_star(dim, ratio):
@@ -415,14 +660,45 @@ def size_star(dim, ratio):
     return int(round(math.sqrt(2 * ratio * a * b / math.pi)))
 
 
+"""Helper function to try to predict the size for the area of a circle (estimated)
+
+:param dim: dimension of the total image
+:param ratio: the ratio of the total image to hide with the shape
+
+
+:returns: size to use to create the shape
+"""
+
+
 def size_circle(dim, ratio):
     return size_poly(dim, ratio)
+
+
+"""Helper function to try to predict the size for the area of an ellipsis (estimated)
+
+:param dim: dimension of the total image
+:param ellipsis_ratio: ratio of the ellipsis radius shape
+:param ratio: the ratio of the total image to hide with the shape
+
+
+:returns: size to use to create the shape
+"""
 
 
 def size_ellipse(dim, ellipse_ratio, ratio):
     (a, b) = dim
     (r1, r2) = ellipse_ratio
     return int(round(math.sqrt(ratio * a * b / (math.pi * r1 * r2))))
+
+
+"""Helper function to try to predict the size for the area of a random shape (estimated)
+
+:param dim: dimension of the total image
+:param ratio: the ratio of the total image to hide with the shape
+
+
+:returns: size to use to create the shape
+"""
 
 
 def size_random(dim, ratio):
