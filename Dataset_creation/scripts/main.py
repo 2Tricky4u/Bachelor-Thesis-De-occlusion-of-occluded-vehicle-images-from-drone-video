@@ -1,16 +1,10 @@
-
-# import cairo
 import argparse
 import os.path
 import pprint
 
-import numpy as np
 from splitter import split
-from utils import randomShape
 from maskCreator import create_masks
 
-# from paint_studio.painter import drawStimuli
-# from fio.saver            import saveData
 
 
 # PARAMETERS ----------------------------------------------------------------------------
