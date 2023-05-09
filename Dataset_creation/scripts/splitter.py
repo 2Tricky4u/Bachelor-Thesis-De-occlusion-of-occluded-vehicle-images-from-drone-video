@@ -11,9 +11,12 @@ from collections import Counter
 :param path: the path to the folder to seek files 
 :returns: an array of files name
 """
+
+
 def get_files_from_folder(path):
     files = os.listdir(path)
     return np.asarray(files)
+
 
 """Split images on a test and train specified folders
 With the specified ratio 
@@ -23,6 +26,8 @@ With the specified ratio
 :param path_to_test_data: the path to the folder where we want to store the test images 
 :returns: nothing
 """
+
+
 def split(path_to_data, path_to_train_data, path_to_test_data, train_ratio):
     # Files walking and counter
     files = get_files_from_folder(path_to_data)

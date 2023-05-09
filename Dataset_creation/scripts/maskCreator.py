@@ -9,7 +9,7 @@ import shapeCreator as sc
 
 from splitter import get_files_from_folder
 from utils import randomShape, Shape
-from resizer import image_resize
+from resizer import image_resize, image_fill
 
 
 class Properties:
@@ -48,7 +48,7 @@ class Properties:
         (x, y) = define_position(dim, int(self.size))
         self.trX = x
         self.trY = y
-        self.size2 = self.size/2
+        self.size2 = self.size / 2
 
 
 def create_masks(FLAGS):
@@ -76,6 +76,16 @@ def create_masks(FLAGS):
         (oh, ow) = image.shape
         p = Properties(FLAGS, image.shape)
         create_mask(oh, ow, p, FLAGS, dst)
+        if FLAGS.resize:
+            train_path = os.path.join(FLAGS.train_data_output[0], "gt/")
+            files = get_files_from_folder(train_path)
+            for file in files:
+                (h,w) = FLAGS.size
+                path = os.path.join(train_path, file)
+                im = cv2.imread(path, 0)
+                img_resize = image_resize(im, w, h)
+                img_re2 = image_fill(img_resize, w, h, 255)
+                cv2.imwrite(path, img_re2)
 
     for count, img in enumerate(test_files):
         src = os.path.join(act_test_path, test_files[count])
@@ -84,6 +94,16 @@ def create_masks(FLAGS):
         (oh, ow) = image.shape
         p = Properties(FLAGS, image.shape)
         create_mask(oh, ow, p, FLAGS, dst)
+        if FLAGS.resize:
+            test_path = os.path.join(FLAGS.test_data_output[0], "gt/")
+            files = get_files_from_folder(test_path)
+            for file in files:
+                (h, w) = FLAGS.size
+                path = os.path.join(test_path, file)
+                im = cv2.imread(path, 0)
+                img_resize = image_resize(im, w, h)
+                img_re2 = image_fill(img_resize, w, h, 255)
+                cv2.imwrite(path, img_re2)
 
 
 def define_position(dim, size):
@@ -118,9 +138,6 @@ def create_mask(w, h, p, FLAGS, dst):
     tmp = tmp[:, :, 0:3]
     if FLAGS.resize:
         (h, w) = FLAGS.size
-        tmp = image_resize(tmp, w, h)
+        img_resize = image_resize(tmp, w, h)
+        tmp = image_fill(img_resize, w, h, 0)
     cv2.imwrite(dst, tmp)
-    # img.write_to_png(dst)
-    ctx.restore()
-    ctx = shapeCreator.clearContext(ctx, [255, 255, 255])
-
