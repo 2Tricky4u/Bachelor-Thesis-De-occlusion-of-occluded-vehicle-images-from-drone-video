@@ -67,15 +67,25 @@ parser.add_argument('--resize', type=bool, nargs='?', default=False,
 FLAGS, _ = parser.parse_known_args()  # ignore unspecified args
 
 
+"""Main function of the script
+Call fundamental function to create the dataset
+
+:param argv: argv
+:returns: nothing
+"""
 def main(argv=None):
+    # Split the dataset in training and test cluster
     split(FLAGS.data_path[0], FLAGS.train_data_output[0], FLAGS.test_data_output[0], FLAGS.train_ratio)
+    # Generate masks
     create_masks(FLAGS)
     print("\nThe dataset was successfully created!" +
-          "\nThe train dataset is at location: " + os.path.abspath(FLAGS.train_data_output[0]) +
-          "\nThe test dataset is at location: " + os.path.abspath(FLAGS.test_data_output[0]))
+          "\nThe train dataset is at location: \n" + os.path.abspath(FLAGS.train_data_output[0]) +
+          "\nThe test dataset is at location: \n" + os.path.abspath(FLAGS.test_data_output[0]))
 
 
 if __name__ == '__main__':
-    print(" - Start the creation of the dataset with the following parameters: - ")
+    print(" - Start the creation of the dataset - \n")
+    print("     With the following parameters: ")
     pprint.pprint(FLAGS.__dict__)
+    print("\n")
     main()
