@@ -1,8 +1,17 @@
 import cv2
 import numpy as np
 
-
 # Inspired from https://stackoverflow.com/questions/44650888/resize-an-image-without-distortion-opencv
+"""Resize an image while keeping its ratio to not deform it
+
+:param image: the image to resize
+:param width: the wanted width
+:param height: the wanted height
+:param inter: default= cv2.INTER_AREA
+
+:returns: the image resized
+"""
+
 
 def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     # initialize the dimensions of the image to be resized and
@@ -36,6 +45,17 @@ def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     return resized
 
 
+"""Fill an image of the color given with the also given dimension
+
+:param image: the image to fill
+:param width: the wanted width
+:param height: the wanted height
+:param color: the color can be from blank to black (grayscale)
+
+:returns: the image filled with the new dimension
+"""
+
+
 def image_fill(image, width, height, color):
     # 255 = blank 0 = black
     bg = np.zeros([width, height], np.uint8)
@@ -46,8 +66,8 @@ def image_fill(image, width, height, color):
     result = bg.copy()
     patch = image
     if len(image.shape) == 3:
-        patch = image[:,:,0]
+        patch = image[:, :, 0]
     elif len(image.shape) == 2:
-        patch = image[:,:]
+        patch = image[:, :]
     result[yoff:yoff + h1, xoff:xoff + w1] = patch
     return result

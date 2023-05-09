@@ -11,6 +11,12 @@ from splitter import get_files_from_folder
 from utils import randomShape, Shape
 from resizer import image_resize, image_fill
 
+"""A class representing the properties of shapes
+
+:param FLAGS: flags of the main parser to configure the randomness
+:param dim: dimension of the image so the shape stay on it
+"""
+
 
 class Properties:
     def __init__(self, FLAGS, dim):
@@ -51,6 +57,16 @@ class Properties:
         self.size2 = self.size / 2
 
 
+"""Create all masks for the input images
+It create the masks of all file that are in the input directory and
+save them in the output directory while separating them in a test and train
+folder.
+
+:param FLAGS: flags of the main parser to configure the masks
+:returns: nothing
+"""
+
+
 def create_masks(FLAGS):
     train_path = FLAGS.train_data_output[0]
     test_path = FLAGS.test_data_output[0]
@@ -80,7 +96,7 @@ def create_masks(FLAGS):
             train_path = os.path.join(FLAGS.train_data_output[0], "gt/")
             files = get_files_from_folder(train_path)
             for file in files:
-                (h,w) = FLAGS.size
+                (h, w) = FLAGS.size
                 path = os.path.join(train_path, file)
                 im = cv2.imread(path, 0)
                 img_resize = image_resize(im, w, h)
@@ -106,6 +122,15 @@ def create_masks(FLAGS):
                 cv2.imwrite(path, img_re2)
 
 
+"""Helper function to translate shape on the image and stay in range
+
+:param dim: the dimension of the original image
+:param size: the size of the shape
+
+:returns: delta x and delta y
+"""
+
+
 def define_position(dim, size):
     (h, w) = dim
     delta = int(size / 2)
@@ -114,6 +139,18 @@ def define_position(dim, size):
     x = random.randint(delta, w1)
     y = random.randint(delta, h1)
     return x, y
+
+
+"""Create a mask and save it at the destination location
+
+:param w: the width of the image
+:param h: the height of the image
+:param p: the properties of the shape mask
+:param FLAGS: flags of the main parser
+:param dst: path for save destination
+
+:returns: nothing
+"""
 
 
 def create_mask(w, h, p, FLAGS, dst):
@@ -140,4 +177,5 @@ def create_mask(w, h, p, FLAGS, dst):
         (h, w) = FLAGS.size
         img_resize = image_resize(tmp, w, h)
         tmp = image_fill(img_resize, w, h, 0)
+    # We save it here as if we return tmp it seems to don't work anymore
     cv2.imwrite(dst, tmp)
