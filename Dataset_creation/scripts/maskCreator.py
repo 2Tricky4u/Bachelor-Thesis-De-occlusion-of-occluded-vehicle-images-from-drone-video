@@ -89,9 +89,12 @@ def create_masks(FLAGS):
         src = os.path.join(act_train_path, train_files[count])
         dst = os.path.join(mask_train_path, str(count).zfill(znb) + ".jpg")
         image = cv2.imread(src, 0)
-        (oh, ow) = image.shape
-        p = Properties(FLAGS, image.shape)
-        create_mask(oh, ow, p, FLAGS, dst)
+        try:
+            (oh, ow) = image.shape
+            p = Properties(FLAGS, image.shape)
+            create_mask(oh, ow, p, FLAGS, dst)
+        except Exception as err:
+            print('Handling run-time error on image ' + str(count) + ':', err)
         if FLAGS.resize:
             train_path = os.path.join(FLAGS.train_data_output[0], "gt/")
             files = get_files_from_folder(train_path)
