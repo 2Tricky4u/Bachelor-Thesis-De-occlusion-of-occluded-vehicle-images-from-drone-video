@@ -69,5 +69,8 @@ def image_fill(image, width, height, color):
         patch = image[:, :, 0]
     elif len(image.shape) == 2:
         patch = image[:, :]
-    result[yoff:yoff + h1, xoff:xoff + w1] = patch
+    try:
+        result[yoff:yoff + h1, xoff:xoff + w1] = patch
+    except Exception as err:
+        print('Handling run-time error on resize:', err)
     return result
