@@ -102,7 +102,7 @@ def create_masks(FLAGS):
                 path = os.path.join(train_path, file)
                 im = cv2.imread(path)
                 img_resize = image_resize(im, w, h)
-                img_re2 = image_fill(img_resize, w, h, 255)
+                img_re2 = image_fill(img_resize, w, h, FLAGS.bgcol)
                 cv2.imwrite(path, img_re2)
 
     for count, img in enumerate(test_files):
@@ -125,7 +125,7 @@ def create_masks(FLAGS):
                 path = os.path.join(test_path, file)
                 im = cv2.imread(path)
                 img_resize = image_resize(im, w, h)
-                img_re2 = image_fill(img_resize, w, h, 255)
+                img_re2 = image_fill(img_resize, w, h, FLAGS.bgcol)
                 cv2.imwrite(path, img_re2)
 
 
