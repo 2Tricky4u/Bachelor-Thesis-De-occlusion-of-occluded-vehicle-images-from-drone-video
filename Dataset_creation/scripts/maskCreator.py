@@ -34,6 +34,7 @@ class Properties:
         self.scale = [1, 1]
         self.mask_color = FLAGS.maskcol
         r = FLAGS.hidden_ratio
+
         if self.shape == Shape.RECTANGLE:
             self.size = sc.size_rec(dim, self.rect_ratio, r)
 
@@ -89,19 +90,17 @@ def create_masks(FLAGS):
         src = os.path.join(act_train_path, train_files[count])
         dst = os.path.join(mask_train_path, str(count).zfill(znb) + ".jpg")
         image = cv2.imread(src, 0)
-        try:
-            (oh, ow) = image.shape
-            p = Properties(FLAGS, image.shape)
-            create_mask(oh, ow, p, FLAGS, dst)
-        except Exception as err:
-            print('Handling run-time error on image ' + str(count) + ':', err)
+        (oh, ow) = image.shape
+        p = Properties(FLAGS, image.shape)
+        create_mask(oh, ow, p, FLAGS, dst)
+
         if FLAGS.resize:
             train_path = os.path.join(FLAGS.train_data_output[0], "gt/")
             files = get_files_from_folder(train_path)
             for file in files:
                 (h, w) = FLAGS.size
                 path = os.path.join(train_path, file)
-                im = cv2.imread(path, 0)
+                im = cv2.imread(path)
                 img_resize = image_resize(im, w, h)
                 img_re2 = image_fill(img_resize, w, h, 255)
                 cv2.imwrite(path, img_re2)
@@ -110,16 +109,21 @@ def create_masks(FLAGS):
         src = os.path.join(act_test_path, test_files[count])
         dst = os.path.join(mask_test_path, str(count).zfill(znb) + ".jpg")
         image = cv2.imread(src, 0)
-        (oh, ow) = image.shape
-        p = Properties(FLAGS, image.shape)
-        create_mask(oh, ow, p, FLAGS, dst)
+        try:
+            (oh, ow) = image.shape
+            p = Properties(FLAGS, image.shape)
+            create_mask(oh, ow, p, FLAGS, dst)
+        except Exception as err:
+            print('Handling run-time error on resize:', err)
+            print('src: ' + src)
+
         if FLAGS.resize:
             test_path = os.path.join(FLAGS.test_data_output[0], "gt/")
             files = get_files_from_folder(test_path)
             for file in files:
                 (h, w) = FLAGS.size
                 path = os.path.join(test_path, file)
-                im = cv2.imread(path, 0)
+                im = cv2.imread(path)
                 img_resize = image_resize(im, w, h)
                 img_re2 = image_fill(img_resize, w, h, 255)
                 cv2.imwrite(path, img_re2)
@@ -179,6 +183,6 @@ def create_mask(w, h, p, FLAGS, dst):
     if FLAGS.resize:
         (h, w) = FLAGS.size
         img_resize = image_resize(tmp, w, h)
-        tmp = image_fill(img_resize, w, h, 0)
+        tmp = image_fill(img_resize, w, h, FLAGS.bgcol)
     # We save it here as if we return tmp it seems to don't work anymore
     cv2.imwrite(dst, tmp)
