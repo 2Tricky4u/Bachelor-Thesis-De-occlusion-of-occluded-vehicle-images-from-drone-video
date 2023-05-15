@@ -32,11 +32,17 @@ def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
         dim = (int(w * r), height)
 
     # otherwise, the height is None
-    else:
+    elif height is None:
         # calculate the ratio of the width and construct the
         # dimensions
         r = width / float(w)
         dim = (width, int(h * r))
+
+    else:
+        rh = height / float(h)
+        rw = width / float(w)
+        ratio = min(rh, rw)
+        dim = (int(w * ratio), int(h * ratio))
 
     # resize the image
     resized = cv2.resize(image, dim, interpolation=inter)
@@ -58,19 +64,22 @@ def image_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
 
 def image_fill(image, width, height, color):
     # 255 = blank 0 = black
-    bg = np.zeros([width, height], np.uint8)
+    bg = np.zeros([width, height, 3], np.uint8)
     bg[:, :] = color
     h1, w1 = image.shape[:2]
     yoff = round((height - h1) / 2)
     xoff = round((width - w1) / 2)
     result = bg.copy()
     patch = image
-    if len(image.shape) == 3:
-        patch = image[:, :, 0]
-    elif len(image.shape) == 2:
-        patch = image[:, :]
     try:
         result[yoff:yoff + h1, xoff:xoff + w1] = patch
     except Exception as err:
         print('Handling run-time error on resize:', err)
+        print("----------------")
+        print(image.shape)
+        print(image.shape[:2])
+        print("--------------------")
+        print(patch.shape)
+        print(result[yoff:yoff + h1, xoff:xoff + w1].shape)
     return result
+
