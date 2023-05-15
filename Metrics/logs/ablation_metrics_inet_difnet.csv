@@ -1,0 +1,14 @@
+Experiment Name:,ablation
+Dataset Name:,inet
+Model Name,difnet
+Sub-Folder,None
+Record Time:,10:52:17
+
+l1,0.0
+l2,0.0
+ssim,0.9999999403953552
+psnr,inf
+lpips,0.0
+fid,3.0749766892768093e-06
+
+

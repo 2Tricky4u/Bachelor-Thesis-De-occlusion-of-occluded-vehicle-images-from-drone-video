@@ -1,0 +1,196 @@
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,00:42:12
+
+l1,0.008968164213001728
+l2,0.0015438863774761558
+ssim,0.9663938283920288
+psnr,30.903202056884766
+lpips,0.5306244492530823
+fid,0.0016135687098994822
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:10:46
+
+l1,0.028406115248799324
+l2,0.009699907153844833
+ssim,0.8737269639968872
+psnr,21.018333435058594
+lpips,0.7213152647018433
+fid,2.174590235881624e-06
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:15:54
+
+l1,0.13648951053619385
+l2,0.0460752509534359
+ssim,0.5310568809509277
+psnr,14.265617370605469
+lpips,2.7835426330566406
+fid,0.0003963609600532436
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:49:08
+
+l1,0.13648951053619385
+l2,0.0460752509534359
+ssim,0.5310568809509277
+psnr,14.265617370605469
+lpips,2.7835426330566406
+fid,0.0003963609600532436
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:50:51
+
+l1,0.09061494469642639
+l2,0.025852888822555542
+ssim,0.7409634590148926
+psnr,18.769567489624023
+lpips,2.357778549194336
+fid,5.983674378740034e-05
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:51:58
+
+l1,0.14698868989944458
+l2,0.06839430332183838
+ssim,0.6567334532737732
+psnr,15.956380844116211
+lpips,2.341095447540283
+fid,9.980602806081151e-05
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:53:57
+
+l1,0.14698868989944458
+l2,0.06839430332183838
+ssim,0.6567334532737732
+psnr,15.956380844116211
+lpips,2.341095447540283
+fid,9.980602806081151e-05
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:55:03
+
+l1,0.1997738480567932
+l2,0.08608834445476532
+ssim,0.4253057837486267
+psnr,11.336929321289062
+lpips,2.969259262084961
+fid,1.6071021377683792e-05
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,18:57:57
+
+l1,0.043009497225284576
+l2,0.017969954758882523
+ssim,0.8464953899383545
+psnr,18.13137435913086
+lpips,1.0212295055389404
+fid,1.2100135791115463e-05
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,19:00:21
+
+l1,0.009651536121964455
+l2,0.0035838731564581394
+ssim,0.9686516523361206
+psnr,28.390399932861328
+lpips,0.483294278383255
+fid,0.0004324901094605593
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,19:02:22
+
+l1,0.004736437927931547
+l2,0.0013751639053225517
+ssim,0.9758274555206299
+psnr,31.47300910949707
+lpips,0.19640108942985535
+fid,0.0020690378026984035
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,06:35:23
+
+l1,0.03456810116767883
+l2,0.013267496600747108
+ssim,0.8703753352165222
+psnr,18.772109985351562
+lpips,0.6592394113540649
+fid,-0.004095999999845612
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,06:39:09
+
+l1,0.03456810116767883
+l2,0.013267497532069683
+ssim,0.8703753352165222
+psnr,18.772109985351562
+lpips,0.6592394113540649
+fid,-0.004095999999845612
+
+
+Experiment Name:,ablation
+Dataset Name:,car256
+Model Name,difnet
+Sub-Folder,None
+Record Time:,06:42:23
+
+l1,0.16681328415870667
+l2,0.0633222758769989
+ssim,0.4957243800163269
+psnr,11.984435081481934
+lpips,2.734710693359375
+fid,-0.004095999999845612
+
+
