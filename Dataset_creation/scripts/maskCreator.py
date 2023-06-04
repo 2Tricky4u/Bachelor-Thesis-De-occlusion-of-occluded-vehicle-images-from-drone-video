@@ -184,5 +184,7 @@ def create_mask(w, h, p, FLAGS, dst):
         (h, w) = FLAGS.size
         img_resize = image_resize(tmp, w, h)
         tmp = image_fill(img_resize, w, h, FLAGS.bgcol)
+    ret, th = cv2.threshold(tmp, 127, 255, cv2.THRESH_BINARY)
+    tmp = th
     # We save it here as if we return tmp it seems to don't work anymore
     cv2.imwrite(dst, tmp)
