@@ -5,6 +5,7 @@ import math
 import random
 import os
 
+bg_color = [0, 0, 0]
 
 def get_files_from_folder(path):
     files = os.listdir(path)
@@ -117,7 +118,7 @@ def main():
         path = os.path.join(gt_path, file)
         im = cv2.imread(path)
         img_resize = image_resize(im, w, h)
-        img_re2 = image_fill(img_resize, w, h, (255, 255, 255))
+        img_re2 = image_fill(img_resize, w, h, bg_color)
         path2 = os.path.join(new_gt_path, file)
         cv2.imwrite(path2, img_re2)
 
@@ -126,7 +127,8 @@ def main():
         path = os.path.join(mask_path, file)
         im = cv2.imread(path)
         img_resize = image_resize(im, w, h)
-        img_re2 = image_fill(img_resize, w, h, (255, 255, 255))
+        ret, th = cv2.threshold(img_resize, 127, 255, cv2.THRESH_BINARY)
+        img_re2 = image_fill(th, w, h, bg_color)
         path2 = os.path.join(new_mask_path, file)
         cv2.imwrite(path2, img_re2)
 
