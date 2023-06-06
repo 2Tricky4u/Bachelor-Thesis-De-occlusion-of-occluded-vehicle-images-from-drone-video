@@ -35,8 +35,12 @@ def main_worker(args, use_gpu=True):
     for ext in ['.jpg', '.png']: 
         image_paths.extend(glob(os.path.join(args.dir_image, '*'+ext)))
     image_paths.sort()
-    mask_paths = sorted(glob(os.path.join(args.dir_mask, '*.png')))
+    mask_paths = sorted(glob(os.path.join(args.dir_mask, '*.jpg')))
     os.makedirs(args.outputs, exist_ok=True)
+
+    print("path found!")
+    print("image path found : " + str(len(image_paths)))
+    print("mask path found: " + str(len(mask_paths)))
     
     # iteration through datasets
     for ipath, mpath in zip(image_paths, mask_paths): 
