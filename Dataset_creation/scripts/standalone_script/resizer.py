@@ -130,7 +130,9 @@ def main():
         ret, th = cv2.threshold(img_resize, 127, 255, cv2.THRESH_BINARY)
         img_re2 = image_fill(th, w, h, bg_color)
         img_re2 = cv2.cvtColor(img_re2, cv2.COLOR_BGR2GRAY)
+        file = os.path.splitext(file)[0]
         path2 = os.path.join(new_mask_path, file)
+        path2 += ".png"
         cv2.imwrite(path2, img_re2)
 
 

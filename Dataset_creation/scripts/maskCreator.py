@@ -88,7 +88,7 @@ def create_masks(FLAGS):
 
     for count, img in enumerate(train_files):
         src = os.path.join(act_train_path, train_files[count])
-        dst = os.path.join(mask_train_path, str(count).zfill(znb) + ".jpg")
+        dst = os.path.join(mask_train_path, str(count).zfill(znb) + ".png")
         image = cv2.imread(src, 0)
         (oh, ow) = image.shape
         p = Properties(FLAGS, image.shape)
@@ -107,7 +107,7 @@ def create_masks(FLAGS):
 
     for count, img in enumerate(test_files):
         src = os.path.join(act_test_path, test_files[count])
-        dst = os.path.join(mask_test_path, str(count).zfill(znb) + ".jpg")
+        dst = os.path.join(mask_test_path, str(count).zfill(znb) + ".png")
         image = cv2.imread(src, 0)
         try:
             (oh, ow) = image.shape
