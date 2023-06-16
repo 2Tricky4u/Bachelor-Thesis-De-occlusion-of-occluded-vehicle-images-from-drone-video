@@ -270,17 +270,173 @@ Here we will show how to use each model and how to train them. <br>
 
 #### RePaint
 <a id="repaint"></a>
+To launch the inferrence of the model, you need to run the script `tes.py` in the `Models\RePaint` folder:
+```sh
+python test.py --conf_path confs/face_train.yml
+```
+You can change the configuration file to use another model or change the parameters <br>
+Here is the configuration file with some appropriate comment how to configure it:
+```yaml
+# Copyright (c) 2022 Huawei Technologies Co., Ltd.
+# Licensed under CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0 International) (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+#
+# The code is released for academic research use only. For commercial use, please contact Huawei Technologies Co., Ltd.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# This repository was forked from https://github.com/openai/guided-diffusion, which is under the MIT license
+
+attention_resolutions: 16,8
+class_cond: false
+diffusion_steps: 4000 #1000 # YT : To Not Adapt
+learn_sigma: true
+noise_schedule: linear
+num_channels: 128
+num_head_channels: -1
+num_heads: 4
+num_res_blocks: 2
+resblock_updown: false
+use_fp16: false
+use_scale_shift_norm: true
+classifier_scale: 4.0
+lr_kernel_n_std: 2
+num_samples: 100
+show_progress: true
+timestep_respacing: '250'
+use_kl: false
+predict_xstart: false
+rescale_timesteps: false
+rescale_learned_sigmas: false
+classifier_use_fp16: false
+classifier_width: 128
+classifier_depth: 2
+classifier_attention_resolutions: 16,8
+classifier_use_scale_shift_norm: true
+classifier_resblock_updown: false
+classifier_pool: attention
+num_heads_upsample: -1
+channel_mult: ''
+dropout: 0.0
+use_checkpoint: false
+use_new_attention_order: false
+clip_denoised: true
+use_ddim: false
+latex_name: RePaint
+method_name: Repaint
+image_size: 128
+model_path: ~/occlusion_removal/guided-diffusion/model000000.pt #~/occlusion_removal/guided-diffusion/openai-2023-06-07-22-46-09-696639/ema_0.9999_000000.pt #model000000.pt #./data/pretrained/256x256_diffusion.pt #./data/pretrained/256x256_diffusion_uncond.pt #./data/pretrained/celeba256_250000.pt
+name: face_example
+inpa_inj_sched_prev: true
+n_jobs: 1
+print_estimated_vars: true
+inpa_inj_sched_prev_cumnoise: false
+schedule_jump_params:
+  t_T: 200 # 250 # YT : Reduce the total number of steps (w/o resampling) to remove more noise per step
+  # when t_T = 50 -> 385 iterations / t_T = 200 -> 3710
+  n_sample: 1
+  jump_length: 5 # 10 # YT : Reduce it to resample fewer times
+  jump_n_sample: 10 # YT : Apply resampling not from the beginning but only after a specific time
+data:
+  eval:
+    paper_face_mask:
+      mask_loader: true
+      gt_path: ./data/datasets/gts/face
+      mask_path: ./data/datasets/gt_keep_masks/face
+      image_size: 128
+      class_cond: false
+      deterministic: true
+      random_crop: false
+      random_flip: false
+      return_dict: true
+      drop_last: false
+      batch_size: 16
+      return_dataloader: true
+      offset: 0
+      max_len: 1 # 8 # YT : They iterate over paths and sample <max_len> images
+      # as for the face_example, only 1 image is available -> set max_len to 1 otherwise they sample 8 times the same gt and the mask
+      paths:
+        srs: ./log/face_example/inpainted
+        lrs: ./log/face_example/gt_masked
+        gts: ./log/face_example/gt
+        gt_keep_masks: ./log/face_example/gt_keep_mask
+
+```
+<b> This conf file NEED to be kept the same for the training and the inference even if we infer on Repaint model and train on Guided Diffusion model</b>
+
+To train the model, you need to do it exclusively from the next model, ie Guided Diffusion. <br>
+
 
 #### Guided Diffusion (Repaint training pipeline)
 <a id="guided"></a>
+To train a model fo repaint you need to launch the script `images_train.py` in the `Models\Guided-DIffusion-Fixed-for-Repaint` folder:
+```sh
+python images_train.py --conf_path confs/face_train.yml
+```
 
 #### AOT-GAN
 <a id="aot-gan-usage"></a>
+To train AOT-GAN you need to launch the script `train.py` in the `Models\AOT-GAN` folder:
+```sh
+python train.py --dir_image "./data/VRAI_128_WonBL/new/gt" --dir_mask "./data/VRAI_128_WonBL/new/mask" --data_train "" --data_test "" --mask_type ""  --image_size 128  --batch_size 16 --print_every 1000  --save_every 1000 --pre_train "./experiments/aotgan_128/" --resume  
+````
+To infer with AOT-GAN you need to launch the script `test.py` in the `Models\AOT-GAN` folder:
+```sh
+python test.py --pre_train "../experiments/G0000000.pt" --dir_mask "data/mask2" --dir_image "data/gt"
+```
+To evaluate AOT-GAN you need to launch the script `eval.py` in the `Models\AOT-GAN` folder:
+```sh
+python eval.py --real_dir "data/GT/1" --fake_dir "data/AOT_big/1" --metric mae psnr ssim fid
+```
 
 #### Evaluation Metrics
 <a id="evaluation"></a>
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+To evaluates some images you need to launch the script `main.py` in the `Metrics` folder:
+```sh
+python main.py
+```
 
+You can configure the script by changing the `config.yaml` file in the `Metrics\src\config` folder.
+```yaml
+# data parameters
+dataset_name: car256                        # used for saving csv. Easy to remember which dataset you're evalulating, especially, if you're using multiple datasets.
+dataset_with_subfolders: False               # True
+dataset_format: image                        # file_list # file_list is not implemented. I will implement it later. Easier to implement.
+multiple_evaluation: False
+generated_image_path: ./data/AOT_big/patch/1
+ground_truth_image_path: ./data/GT/patch_big/1
+return_dataset_name: False                   # Currently, no use. In future, it will be used for multi-testing.
+
+
+# experiment
+exp_type: ablation
+model_name: difnet
+
+# processing parameters
+batch_size: 1                                # set according to your GPU/CPU
+image_shape: [ 256, 256, 3 ]                 # set according to your need.
+random_crop: False                           # currently, not implemented. In future, it will be used to evaluate patches.
+threads: 4                                   # set according to your CPU.
+
+# print option
+print_interval_frequency: 1
+show_config: True
+
+# save options
+save_results: True
+save_results_path: ./logs
+save_file_name: metrics
+save_type: csv
+```
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- ROADMAP -->
