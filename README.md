@@ -39,16 +39,16 @@
         <li><a href="#installation">Installation</a></li>
         <li><a href="#repaint_inst">Repaint</a></li>
         <li><a href="#guided_inst">Guided Diffusion</a></li>
-        <li><a href="#aot-gan_inst">AOT-GAN</a></li>
+        <li><a href="#aot-gan-inst">AOT-GAN</a></li>
         <li><a href="#metrics_inst">Evaluation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a>
         <ul>
-            <li><a href="dataset-creation">Dataset Creation</a> </li>
+            <li><a href="#dataset-creation">Dataset Creation</a> </li>
             <li><a href="#repaint">Repaint</a></li>
             <li><a href="#guided">Guided Diffusion</a></li>
-            <li><a href="#aot-gan">AOT-GAN</a></li>
+            <li><a href="#aot-gan-usage">AOT-GAN</a></li>
             <li><a href="#evaluation">Evaluation</a></li>
       </ul>
     </li>
@@ -142,7 +142,7 @@ You can download this repo from the following command:
    ```sh
    pip install numpy torch blobfile tqdm pyYaml pillow  
    ```
-   You should be ready to use Repaint if your machine has a GPU with CUDA support. <br> Go to the <a href="#repaint-usage">Repaint Usage</a> section to see how to use it.
+   You should be ready to use Repaint if your machine has a GPU with CUDA support. <br> Go to the <a href="#repaint">Repaint Usage</a> section to see how to use it.
 
 #### Guided Diffusion (Training Repaint)
 <a id="guided_inst"></a>
@@ -158,10 +158,10 @@ You can download this repo from the following command:
    ```sh
    pip install mpi4py
    ```   
-   You should be ready to use Guided Diffusion and train a model for Repaint (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#guided-usage">Guided Diffusion Usage</a> section to see how to use it and launch training.   
+   You should be ready to use Guided Diffusion and train a model for Repaint (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#guided">Guided Diffusion Usage</a> section to see how to use it and launch training.   
 
 #### AOT-GAN
-<a id="aot-gan_inst"></a>
+<a id="aot-gan-inst"></a>
 1. Go to the AOT-GAN folder
    ```sh
    cd Models/AOT-GAN
@@ -176,7 +176,7 @@ You can download this repo from the following command:
    ```sh
    conda activate inpainting
    ```
-   You should be ready to use AOT-GAN for inference and training (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#AOT-usage">AOT-GAN Usage</a> section to see how to use it.
+   You should be ready to use AOT-GAN for inference and training (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#aot-gan-usage">AOT-GAN Usage</a> section to see how to use it.
 
 #### Evaluation Metrics
 <a id="metrics_inst"></a>
@@ -188,7 +188,7 @@ You can download this repo from the following command:
    ```sh
    pip install piq
    ```
-    You should be ready to use the Evaluation Metrics. <br> Go to the <a href="#metrics-usage">Evaluation Metrics Usage</a> section to see how to use it.
+    You should be ready to use the Evaluation Metrics. <br> Go to the <a href="#evaluation">Evaluation Metrics Usage</a> section to see how to use it.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 If any of the above steps fail, please refer to the official documentation of the respective model for more information.
@@ -262,10 +262,23 @@ Then you need to run the script `green_splitter.py` with the following command:
 ```sh
 python green_splitter.py
 ```
+The script will create a folder named `green` containing the images with too much green in them and a folder named as you name it in path containing the other images.
 
 #### Models usage
+
 Here we will show how to use each model and how to train them. <br>
 
+#### RePaint
+<a id="repaint"></a>
+
+#### Guided Diffusion (Repaint training pipeline)
+<a id="guided"></a>
+
+#### AOT-GAN
+<a id="aot-gan-usage"></a>
+
+#### Evaluation Metrics
+<a id="evaluation"></a>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
