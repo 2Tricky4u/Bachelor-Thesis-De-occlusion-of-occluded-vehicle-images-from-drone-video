@@ -212,12 +212,18 @@ To create a dataset, you need to run the script `main.py` in the `Dataset_creati
    ```sh
     python main.py [options -> see below]
     ```
+You need to specify the input, a folder containing the images of your future dataset, and the output, a folder where the dataset will be created. <br>
+The script will create two folder with the name `train` for the training part and one with the name `test` for the test part of the dataset in the output folder. <br>
+Each of thees folder will be composed of a folder named `gt` for ground truth images and a folder named `mask` for the masks. <br>
 ![Dataset-creation-cmd][Dataset-Creation]
+For more information about the options, you should look at the dataset creation section of our <a href="./report.pdf">report</a>.
 
 <b>I would highly suggest to set the resize option to false, as it will take a lot of RAM to resize the images in the fly of the process and can cause unexpected results.</b> <br>
 We provided a standalone script to address this problem. <br>
 
-For more information about the options, you should look at the dataset creation of our <a href="./report.pdf">report</a>.
+To resize the images of a folder using the standalone script, you need to copy the script `resize.py` in the `Dataset_creation\scripts` folder:
+
+
 #### Models usage
 Here we will show how to use each model and how to train them. <br>
 
