@@ -37,14 +37,26 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#repaint_inst">Repaint</a></li>
+        <li><a href="#guided_inst">Guided Diffusion</a></li>
+        <li><a href="#aot-gan_inst">AOT-GAN</a></li>
+        <li><a href="#metrics_inst">Evaluation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#usage">Usage</a>
+        <ul>
+            <li><a href="dataset-creation">Dataset Creation</a> </li>
+            <li><a href="#repaint">Repaint</a></li>
+            <li><a href="#guided">Guided Diffusion</a></li>
+            <li><a href="#aot-gan">AOT-GAN</a></li>
+            <li><a href="#evaluation">Evaluation</a></li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#report">Report</a></li>
+    <li><a href="#results">Results sample</a></li>
   </ol>
 </details>
 
@@ -54,7 +66,7 @@
 ## About The Project
 
 ![Inpainting Screen Shot](./Images/project_pres.png)
-
+<a id="about-the-project"></a>
 In urban traffic analysis, the accurate detection of vehicles plays a crucial role in generating reliable statistics for various city management applications. However, occlusions occurring in densely populated city environments pose significant challenges to vehicle detection algorithms, leading to reduced detection rates and compromised data accuracy. To try to address this issue, we compared two of the novel models that leverage machine learning techniques for inpainting occluded vehicles, with the goal of improving the overall detection rate and enhancing the reliability of city statistics.
 
 
@@ -76,7 +88,7 @@ We wanted to evaluate the proposed method on a comprehensive dataset of UAV poin
 
 
 ### Built With
-
+<a id="built-with"></a>
 Here are the major frameworks/libraries used in our project.
 
 * [![PyTorch][PyTorch.org]][PyTorch-url]
@@ -103,12 +115,12 @@ Evaluation Metrics:
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
+<a id="getting-started"></a>
 To get a local copy up and running follow these simple steps. <br> We need to setup, for both model, the environment, download the datasets and the models, and then run the code.
 
 ### Prerequisites
-
-Get the latest version of Python and pip installed on your machine. <br>
+<a id="prerequisites"></a>
+Get the latest version of Python, PyTorch and pip installed on your machine. <br>
 We also highly suggest the use of conda to manage the virtual environments. <br>
 We recommend using a virtual environment to run the code of each model individually. <br>
 To fetch the code from GitHub, you need to have git installed on your machine. <br>
@@ -119,9 +131,9 @@ You can download this repo from the following command:
   ```
 
 ### Installation
-
+<a id="installation"></a>
 #### Repaint (Only inferring)
-
+<a id="repaint_inst"></a>
 1. Go to the Repaint folder
    ```sh
    cd Models/Repaint
@@ -133,7 +145,7 @@ You can download this repo from the following command:
    You should be ready to use Repaint if your machine has a GPU with CUDA support. <br> Go to the <a href="#repaint-usage">Repaint Usage</a> section to see how to use it.
 
 #### Guided Diffusion (Training Repaint)
-
+<a id="guided_inst"></a>
 1. Go to the Guided Diffusion folder
    ```sh
    cd Models/Guided-Diffusion
@@ -149,7 +161,7 @@ You can download this repo from the following command:
    You should be ready to use Guided Diffusion and train a model for Repaint (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#guided-usage">Guided Diffusion Usage</a> section to see how to use it and launch training.   
 
 #### AOT-GAN
-
+<a id="aot-gan_inst"></a>
 1. Go to the AOT-GAN folder
    ```sh
    cd Models/AOT-GAN
@@ -167,7 +179,7 @@ You can download this repo from the following command:
    You should be ready to use AOT-GAN for inference and training (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#AOT-usage">AOT-GAN Usage</a> section to see how to use it.
 
 #### Evaluation Metrics
-
+<a id="metrics_inst"></a>
 1. Go to the Evaluation Metrics folder
    ```sh
    cd Metrics
@@ -179,14 +191,35 @@ You can download this repo from the following command:
     You should be ready to use the Evaluation Metrics. <br> Go to the <a href="#metrics-usage">Evaluation Metrics Usage</a> section to see how to use it.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+If any of the above steps fail, please refer to the official documentation of the respective model for more information.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+<a id="usage"></a>
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+#### Dataset Creation
+<a id="dataset-creation"></a>
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+There, are our generated datasets for the occlusion problem <a href="https://drive.google.com/drive/folders/1YWPhaaiaVNZkt0xrYvjGzBprIZE1X5Mc?usp=drive_link">Here</a>.<br>
+
+To create a dataset, you need to run the script `main.py` in the `Dataset_creation\scripts` folder:
+
+1. Go to the Dataset_creation folder
+   ```sh
+   cd Dataset_creation\scripts
+   ```
+2. Run the script
+   ```sh
+    python main.py [options -> see below]
+    ```
+![Dataset-creation-cmd][Dataset-Creation]
+
+<b>I would highly suggest to set the resize option to false, as it will take a lot of RAM to resize the images in the fly of the process and can cause unexpected results.</b> <br>
+We provided a standalone script to address this problem. <br>
+
+For more information about the options, you should look at the dataset creation of our <a href="./report.pdf">report</a>.
+#### Models usage
+Here we will show how to use each model and how to train them. <br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -194,16 +227,16 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- ROADMAP -->
 ## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+<a id="roadmap"></a>
+- [x] Provide a script to create occlusion dataset
+- [x] Generate multiples datasets for vehicles (UAV POV)
+- [x] Selected and study two of the newest ML model for inpainting
+- [x] Setup two different pipelines to run/train those models
+- [x] Setup a pipeline to evaluate the models
+- [x] Evaluate the mid-semester results of the models 
+- [ ] Train successfully, with expected results, the models on the created datasets
+    - [x] Repaint
+    - [ ] AOT-GAN (doesn't converge)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -211,7 +244,7 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 <!-- CONTACT -->
 ## Contact
-
+<a id="contact"></a>
 Xavier Ogay - [website](https://git.xavierogay.ch/) - xavier.ogay@epfl.ch
 
 Mahmoud Dokmak - mahmoud.dokmak@epfl.ch
@@ -224,22 +257,13 @@ Project Link: [https://github.com/2Tricky4u/Bachelor-Thesis-De-occlusion-of-occl
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+<a id="acknowledgments"></a>
+We would like to thank our supervisors, Yura Tak, Robert Fonod and Prof. Geroliminis, for their guidance and support throughout the project. <br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Report
-
+<a id="report"></a>
 <object data="report.pdf" type="application/pdf" width="700px" height="700px">
     <embed src="report.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="report.pdf">Download PDF</a>.</p>
@@ -247,11 +271,15 @@ Use this space to list resources you find helpful and would like to give credit 
 </object>
 
 ## Results
+<a id="results"></a>
 #### Mid-Semester Sample Results
-![Mid-Semester-Results][Mid-Semester-Results]<a id="midsem"></a>
+<a id="midsem"></a>
+![Mid-Semester-Results][Mid-Semester-Results]
 
 #### End-Semester Sample Results
-![End-Semester-Results][End-Semester-Results]<a id="endsem"></a>
+<a id="endsem"></a>
+https://drive.google.com/drive/folders/1OmV5iyZMOzC-QUi7ynDh4HsonT9wst51?usp=sharing
+![End-Semester-Results][End-Semester-Results]
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [Pytorch.org]: https://img.shields.io/badge/PyTorch-FF0000?style=for-the-badge&logo=PyTorch&logoColor=white
@@ -269,3 +297,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [2D-Shape-Generator-url]: https://github.com/TimoFlesch/2D-Shape-Generator
 [Guided-Diffusion-url]: https://github.com/openai/guided-diffusion
 [Mid-Semester-Results]: Images/Huge.png
+[End-Semester-Results]: Images/EndSemesterResults.png
+[Dataset-creation]: Images/dataset_cmd.png
