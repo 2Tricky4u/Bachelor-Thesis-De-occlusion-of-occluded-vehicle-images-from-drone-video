@@ -294,10 +294,10 @@ Here is the configuration file with some appropriate comment how to configure it
 # This repository was forked from https://github.com/openai/guided-diffusion, which is under the MIT license
 
 attention_resolutions: 16,8
-class_cond: false
-diffusion_steps: 4000 #1000 # YT : To Not Adapt
+class_cond: false # Use conditioner
+diffusion_steps: 4000 # To Not Adapt
 learn_sigma: true
-noise_schedule: linear
+noise_schedule: linear #Choose the noise schedule
 num_channels: 128
 num_head_channels: -1
 num_heads: 4
