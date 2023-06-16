@@ -13,9 +13,9 @@
     <a href="googledrive"><strong>Explore the report »</strong></a> <!-- TODO: Add link to report -->
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Mid-semester results</a>
+    <a href="#midsem">View Mid-semester results</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">View End-semester results</a>
+    <a href="#endsem">View End-semester results</a>
     ·
   </p>
 </div>
@@ -87,14 +87,15 @@ Here are the major frameworks/libraries used in our project.
 This project was based on the following GitHub repositories.
 
 Main Machine Learning Models used:
-* [![Repaint][Git-repo]][Repaint-url]<br> <i> <a href="https://github.com/andreas128/RePaint">RePaint: Inpainting using Denoising Diffusion Probabilistic Models</a></i>
-* [![AOT-GAN][Git-repo]][AOT-GAN-url]<br> <i> <a href="https://github.com/researchmm/AOT-GAN-for-Inpainting">AOT-GAN for High-Resolution Image Inpainting</a></i>
+* [![Repaint][Git-repo]][Repaint-url] <i> <a href="https://github.com/andreas128/RePaint">RePaint: Inpainting using Denoising Diffusion Probabilistic Models</a></i>
+* [![Guided-Diffusion][Git-repo]][Guided-Diffusion-url] <i> <a href="https://github.com/openai/guided-diffusion">Guided Diffusion (Repaint training pipeline)</a></i>
+* [![AOT-GAN][Git-repo]][AOT-GAN-url] <i> <a href="https://github.com/researchmm/AOT-GAN-for-Inpainting">AOT-GAN for High-Resolution Image Inpainting</a></i>
 
 Evaluation Metrics:
-* [![Inpainting-Evaluation-Metrics][Git-repo]][Inpainting-Evaluation-Metrics-url]<br> <i> <a href="https://github.com/SayedNadim/Image-Quality-Evaluation-Metrics">Image Quality Evaluation Metrics</a></i>
+* [![Inpainting-Evaluation-Metrics][Git-repo]][Inpainting-Evaluation-Metrics-url] <i> <a href="https://github.com/SayedNadim/Image-Quality-Evaluation-Metrics">Image Quality Evaluation Metrics</a></i>
 
 2D Shape Generator:
-* [![2D-Shape-Generator][Git-repo]][2D-Shape-Generator-url]<br> <i> <a href="https://github.com/TimoFlesch/2D-Shape-Generator">2D-Shape-Generator</a></i>
+* [![2D-Shape-Generator][Git-repo]][2D-Shape-Generator-url] <i> <a href="https://github.com/TimoFlesch/2D-Shape-Generator">2D-Shape-Generator</a></i>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,35 +104,79 @@ Evaluation Metrics:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple steps. <br> We need to setup, for both model, the environment, download the datasets and the models, and then run the code.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
+Get the latest version of Python and pip installed on your machine. <br>
+We also highly suggest the use of conda to manage the virtual environments. <br>
+We recommend using a virtual environment to run the code of each model individually. <br>
+To fetch the code from GitHub, you need to have git installed on your machine. <br>
+You can download this repo from the following command:
+
+```sh
+  git clone https://github.com/2Tricky4u/Bachelor-Thesis-De-occlusion-of-occluded-vehicle-images-from-drone-video
   ```
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+#### Repaint (Only inferring)
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Go to the Repaint folder
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   cd Models/Repaint
    ```
-3. Install NPM packages
+2. When in the appropriate virtual environment, install the requirements:
    ```sh
-   npm install
+   pip install numpy torch blobfile tqdm pyYaml pillow  
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+   You should be ready to use Repaint if your machine has a GPU with CUDA support. <br> Go to the <a href="#repaint-usage">Repaint Usage</a> section to see how to use it.
 
+#### Guided Diffusion (Training Repaint)
+
+1. Go to the Guided Diffusion folder
+   ```sh
+   cd Models/Guided-Diffusion
+   ```
+2. When in the appropriate virtual environment, install the requirements:
+   ```sh
+   pip install -e .
+   ```
+3. You also need the following Message Passing Interface (MPI) library:
+   ```sh
+   pip install mpi4py
+   ```   
+   You should be ready to use Guided Diffusion and train a model for Repaint (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#guided-usage">Guided Diffusion Usage</a> section to see how to use it and launch training.   
+
+#### AOT-GAN
+
+1. Go to the AOT-GAN folder
+   ```sh
+   cd Models/AOT-GAN
+   ```
+   
+2. With conda, create a new virtual environment and install the requirements:
+   ```sh
+   conda env create -f environment.yml
+   ```
+   
+3. Activate the environment
+   ```sh
+   conda activate inpainting
+   ```
+   You should be ready to use AOT-GAN for inference and training (if your machine has a GPU with CUDA support.) <br> Go to the <a href="#AOT-usage">AOT-GAN Usage</a> section to see how to use it.
+
+#### Evaluation Metrics
+
+1. Go to the Evaluation Metrics folder
+   ```sh
+   cd Metrics
+   ```
+2. When in the appropriate virtual environment, install the requirements:
+   ```sh
+   pip install piq
+   ```
+    You should be ready to use the Evaluation Metrics. <br> Go to the <a href="#metrics-usage">Evaluation Metrics Usage</a> section to see how to use it.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -201,6 +246,12 @@ Use this space to list resources you find helpful and would like to give credit 
     </embed>
 </object>
 
+## Results
+#### Mid-Semester Sample Results
+![Mid-Semester-Results][Mid-Semester-Results]<a id="midsem"></a>
+
+#### End-Semester Sample Results
+![End-Semester-Results][End-Semester-Results]<a id="endsem"></a>
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [Pytorch.org]: https://img.shields.io/badge/PyTorch-FF0000?style=for-the-badge&logo=PyTorch&logoColor=white
@@ -216,3 +267,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [AOT-GAN-url]: https://github.com/researchmm/AOT-GAN-for-Inpainting
 [Inpainting-Evaluation-Metrics-url]: https://github.com/SayedNadim/Image-Quality-Evaluation-Metrics
 [2D-Shape-Generator-url]: https://github.com/TimoFlesch/2D-Shape-Generator
+[Guided-Diffusion-url]: https://github.com/openai/guided-diffusion
+[Mid-Semester-Results]: Images/Huge.png
