@@ -1,8 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center" id="readme-top">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/luts_logo.png" alt="Logo" width="237" height="80">
+  <a href="https://www.epfl.ch/labs/luts/">
+    <img src="Images/luts_logo.png" alt="Logo" width="237" height="80">
   </a>
 
 <h3 align="center">Bachelor Thesis: De-occlusion of occluded vehicle images from drone video</h3>
