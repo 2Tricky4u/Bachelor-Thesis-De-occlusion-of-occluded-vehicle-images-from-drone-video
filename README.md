@@ -63,9 +63,11 @@ De-occlusion involves a two-step process:
 * Inpainting (image completion) 
 
 First, an occlusion detection algorithm is employed to identify regions within the traffic scene that contain occluded vehicles. 
-<br>Second, is an Inpainting model that given the occluded part, completes this hidden image fraction. We exclusively focused on the inpainting of images for this project.
+<br>Second, is an Inpainting model that given the occluded part, completes this hidden image fraction. 
 
-One machine learning model is trained using only a dataset of non-occluded vehicle images and the second also needs masks of the occluded part. The models learn to inpaint the occluded regions based on the available visual information. By leveraging contextual cues and vehicle appearance patterns, the model should effectively generate plausible completions of the occluded regions, restoring the missing vehicle details.
+<b>We exclusively focused on the inpainting part of images for this project.</b>
+
+One machine learning model, namely Repaint, is trained using only a dataset of non-occluded vehicle images and the second, namely AOT-GAN, also needs masks of the occluded part. The models learn to inpaint the occluded regions based on the available visual information. By leveraging contextual cues and vehicle appearance patterns, the model should effectively generate plausible completions of the occluded regions, restoring the missing vehicle details.
 
 We wanted to evaluate the proposed method on a comprehensive dataset of UAV point of view single vehicles in urban traffic scenes. Finetune it with another dataset of the LUTS lab. Then comparing the ground truth image with the inpainted image to compare the results. An interesting future evaluation could be comparing the detection performance before and after applying the inpainting technique.
 
@@ -82,6 +84,17 @@ Here are the major frameworks/libraries used in our project.
 * [![OpenCV][OpenCV.org]][OpenCV-url]
 * [![Cairo][Cairo.org]][Cairo-url]
 
+This project was based on the following GitHub repositories.
+
+Main Machine Learning Models used:
+* [![Repaint][Git-repo]][Repaint-url]<br> <i> <a href="https://github.com/andreas128/RePaint">RePaint: Inpainting using Denoising Diffusion Probabilistic Models</a></i>
+* [![AOT-GAN][Git-repo]][AOT-GAN-url]<br> <i> <a href="https://github.com/researchmm/AOT-GAN-for-Inpainting">AOT-GAN for High-Resolution Image Inpainting</a></i>
+
+Evaluation Metrics:
+* [![Inpainting-Evaluation-Metrics][Git-repo]][Inpainting-Evaluation-Metrics-url]<br> <i> <a href="https://github.com/SayedNadim/Image-Quality-Evaluation-Metrics">Image Quality Evaluation Metrics</a></i>
+
+2D Shape Generator:
+* [![2D-Shape-Generator][Git-repo]][2D-Shape-Generator-url]<br> <i> <a href="https://github.com/TimoFlesch/2D-Shape-Generator">2D-Shape-Generator</a></i>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -198,3 +211,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [Cairo-url]: https://www.cairographics.org/
 [OpenCV.org]: https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=opencv&logoColor=white
 [OpenCV-url]: https://opencv.org/
+[Git-repo]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
+[Repaint-url]: https://github.com/andreas128/RePaint
+[AOT-GAN-url]: https://github.com/researchmm/AOT-GAN-for-Inpainting
+[Inpainting-Evaluation-Metrics-url]: https://github.com/SayedNadim/Image-Quality-Evaluation-Metrics
+[2D-Shape-Generator-url]: https://github.com/TimoFlesch/2D-Shape-Generator
