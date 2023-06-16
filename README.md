@@ -202,6 +202,7 @@ If any of the above steps fail, please refer to the official documentation of th
 
 There, are our generated datasets for the occlusion problem <a href="https://drive.google.com/drive/folders/1YWPhaaiaVNZkt0xrYvjGzBprIZE1X5Mc?usp=drive_link">Here</a>.<br>
 
+###### main.py
 To create a dataset, you need to run the script `main.py` in the `Dataset_creation\scripts` folder:
 
 1. Go to the Dataset_creation folder
@@ -221,8 +222,46 @@ For more information about the options, you should look at the dataset creation 
 <b>I would highly suggest to set the resize option to false, as it will take a lot of RAM to resize the images in the fly of the process and can cause unexpected results.</b> <br>
 We provided a standalone script to address this problem. <br>
 
-To resize the images of a folder using the standalone script, you need to copy the script `resize.py` in the `Dataset_creation\scripts` folder:
+###### resize.py
+To resize the images of a folder using the standalone script, you need to copy the script `resize.py` in the `Dataset_creation\scripts\standalone_script` folder and paste it in the folder containing the images you want to resize. It is coded in a way that the folder you paste `resizer.py` should contains two other folder named `gt` and `mask`<br>
+You can edit the beginning of the script to change the size of the images and the background color.
+```python
+import cv2
+import numpy as np
+import pathlib
+import os
 
+bg_color = [0, 0, 0]  <--- Background color
+square_dim = 128    <--- Size of the images (square)
+
+def get_files_from_folder(path):
+files = os.listdir(path)
+return np.asarray(files)
+...
+```
+Then you need to run the script `resize.py` with the following command:
+```sh
+python resizer.py
+```
+This will create a folder named `new` containing the resized images in the same folder <br>
+
+###### Green Splitter
+This script is used to split images which contains too much green in them. <br>
+To use it, you need to copy the script `green_splitter.py` in the `Dataset_creation\scripts\standalone_script` folder and paste it in the folder containing the images you want to split. It is coded in a way that the folder you paste `green_splitter.py` should contains two other folder named `gt` and `mask`<br>
+You need to edit the beginning of the script to change the input and output path.
+```python
+import math
+import os
+import cv2
+import numpy as np
+
+original_path = "./v_patches/" <--- Path to the folder containing the images
+path = "./resized/" <--- Path for the outputs
+```
+Then you need to run the script `green_splitter.py` with the following command:
+```sh
+python green_splitter.py
+```
 
 #### Models usage
 Here we will show how to use each model and how to train them. <br>

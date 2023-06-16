@@ -3,6 +3,8 @@ import os
 import cv2
 import numpy as np
 
+original_path = "./v_patches/"
+path = "./resized/"
 
 #https://stackoverflow.com/questions/66757199/color-percentage-in-image-for-python-using-opencv
 def get_files_from_folder(path):
@@ -24,10 +26,7 @@ def ratio_of_green(img):
     return cv2.countNonZero(mask)/(img.size/3)
 
 def main():
-    original_path = "./v_patches/"
     files = get_files_from_folder(original_path)
-
-    path = "./resized/"
     # creates dir
     if not os.path.exists(path):
         os.makedirs(path)

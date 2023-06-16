@@ -1,11 +1,10 @@
 import cv2
 import numpy as np
 import pathlib
-import math
-import random
 import os
 
 bg_color = [0, 0, 0]
+square_dim = 128
 
 def get_files_from_folder(path):
     files = os.listdir(path)
@@ -96,11 +95,11 @@ def image_fill(image, width, height, color):
 
 
 def main():
-    dim = 128
+    dim = square_dim
     actual_path = pathlib.Path().resolve()
     gt_path = os.path.join(actual_path, "gt/")
     mask_path = os.path.join(actual_path, "mask/")
-    new_path = os.path.join(actual_path, "new128/")
+    new_path = os.path.join(actual_path, "new/")
     if not os.path.exists(new_path):
         os.makedirs(new_path)
     new_mask_path = os.path.join(new_path, "new/mask/")
