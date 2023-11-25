@@ -10,7 +10,7 @@
   <p align="center">
     An adventure through Inpainting hidden part of vehicles with Deep Learning!
     <br />
-    <a href="https://drive.google.com/file/d/1QOGCKRyup9iTWNzw00qgwSuxu7OJstH0/view?usp=sharing"><strong>Explore the report »</strong></a> <!-- TODO: Add link to report -->
+    <a href="https://drive.google.com/file/d/11slsowC7kfa6kVTZsxml0DvB8hvBVXzg/view?usp=sharing"><strong>Explore the report »</strong></a>
     <br />
     <br />
     <a href="#midsem">View Mid-semester results</a>
